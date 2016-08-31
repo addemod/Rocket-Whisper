@@ -1,6 +1,6 @@
 # Rocket-Whisper
 
-Send private messages on Unturned server with [RocketMod](http://rocketmod.net)!
+Send private messages on Unturned servers with [RocketMod](http://rocketmod.net)!
 
 ## Install Instructions
 1. Place the .DLL file inside Rocket/Plugins
