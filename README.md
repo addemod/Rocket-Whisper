@@ -10,14 +10,16 @@ Send private messages on Unturned servers with [RocketMod](http://rocketmod.net)
 
 ## Commands
 **/whisper** - *Send Send a private message (a whisper) to a player*
+  
   Aliases:
-    **/w**
-    **/msg**
-    **/pm**
+  * **/w**
+  * **/msg**
+  * **/pm**
 
 **/reply** - *Reply a message to the last player who sent you a private message.*
+  
   Alias:
-    **/r**
+  * **/r**
 
 ## Permissions
 **whisper.message** - *Allows the player to use the /whisper command (and the aliases)*
