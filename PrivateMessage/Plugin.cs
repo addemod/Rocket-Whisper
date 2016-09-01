@@ -1,22 +1,17 @@
-﻿using System;
-using Rocket.API.Collections;
+﻿using Rocket.API.Collections;
 using Rocket.Core.Plugins;
-using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using System.Collections.Generic;
 using UnityEngine;
-using Rocket.API;
-using Rocket.Core.Logging;
-using System.Collections;
-using Rocket.Core.Commands;
 using Rocket.Unturned.Chat;
+using Steamworks;
 
 namespace PrivateMessage
 {
     public class Plugin : RocketPlugin
     {
         public static Plugin Instance;
-        public Dictionary<string, string> LastMessageFromPlayer;
+        public Dictionary<CSteamID, CSteamID> LastMessageFromPlayer;
 
         public override TranslationList DefaultTranslations
         {
@@ -40,7 +35,7 @@ namespace PrivateMessage
         protected override void Load()
         {
             Instance = this;
-            LastMessageFromPlayer = new Dictionary<string, string>();
+            LastMessageFromPlayer = new Dictionary<CSteamID, CSteamID>();
         }
 
         protected override void Unload()
@@ -51,20 +46,20 @@ namespace PrivateMessage
         public void SetPlayerFromLastMessage(UnturnedPlayer fromPlayer, UnturnedPlayer toPlayer)
         {
             // If the player who sent the message is already in the dictionary
-            if (LastMessageFromPlayer.ContainsKey(toPlayer.DisplayName))
+            if (LastMessageFromPlayer.ContainsKey(toPlayer.CSteamID))
             {
                 // If sender is console
                 if(fromPlayer == null)
                 {
                     // If the sender is console we can't set the last player who sent a pm to "toPlayer" as you can't whisper to console.
-                    LastMessageFromPlayer.Remove(toPlayer.DisplayName);
+                    LastMessageFromPlayer.Remove(toPlayer.CSteamID);
                     return;
                 }
 
                 // Remove the player who received the message
-                LastMessageFromPlayer.Remove(toPlayer.DisplayName);
+                LastMessageFromPlayer.Remove(toPlayer.CSteamID);
                 // Then add him again and his message partner
-                LastMessageFromPlayer.Add(toPlayer.DisplayName, fromPlayer.DisplayName);
+                LastMessageFromPlayer.Add(toPlayer.CSteamID, fromPlayer.CSteamID);
             }
             else
             {
@@ -75,22 +70,22 @@ namespace PrivateMessage
                     return;
                 }
                 // Add the player and his message partner
-                LastMessageFromPlayer.Add(toPlayer.DisplayName, fromPlayer.DisplayName);
+                LastMessageFromPlayer.Add(toPlayer.CSteamID, fromPlayer.CSteamID);
             }
         }
 
         public UnturnedPlayer GetPlayerFromLastMessage(UnturnedPlayer player)
         {
-            string lastMessageFrom = null;
+            CSteamID lastMessageFrom = new CSteamID();
 
             // If the player who sent the message is in the dictionary
-            if (LastMessageFromPlayer.ContainsKey(player.DisplayName))
+            if (LastMessageFromPlayer.ContainsKey(player.CSteamID))
             {
                 // Get the player who last messaged him
-                LastMessageFromPlayer.TryGetValue(player.DisplayName, out lastMessageFrom);
+                LastMessageFromPlayer.TryGetValue(player.CSteamID, out lastMessageFrom);
             }
 
-            return UnturnedPlayer.FromName(lastMessageFrom);
+            return UnturnedPlayer.FromCSteamID(lastMessageFrom);
         }
 
         public void WhisperPlayer(UnturnedPlayer fromPlayer, UnturnedPlayer toPlayer, string message)
