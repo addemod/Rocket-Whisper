@@ -8,7 +8,7 @@ namespace PrivateMessage
 
         public void LoadDefaults()
         {
-            Color = "magenta";
+            Color = "purple";
         }
     }
 }
