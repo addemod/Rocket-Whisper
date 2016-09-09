@@ -1,17 +1,22 @@
-﻿using Rocket.API.Collections;
+﻿using System;
+using Rocket.API.Collections;
 using Rocket.Core.Plugins;
+using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using System.Collections.Generic;
 using UnityEngine;
+using Rocket.API;
+using Rocket.Core.Logging;
+using System.Collections;
+using Rocket.Core.Commands;
 using Rocket.Unturned.Chat;
-using Steamworks;
 
 namespace PrivateMessage
 {
     public class Plugin : RocketPlugin<WhisperConfig>
     {
         public static Plugin Instance;
-        public Dictionary<CSteamID, CSteamID> LastMessageFromPlayer;
+        public Dictionary<Steamworks.CSteamID, Steamworks.CSteamID> LastMessageFromPlayer;
 
         public override TranslationList DefaultTranslations
         {
@@ -35,7 +40,7 @@ namespace PrivateMessage
         protected override void Load()
         {
             Instance = this;
-            LastMessageFromPlayer = new Dictionary<CSteamID, CSteamID>();
+            LastMessageFromPlayer = new Dictionary<Steamworks.CSteamID, Steamworks.CSteamID>();
         }
 
         protected override void Unload()
@@ -76,16 +81,16 @@ namespace PrivateMessage
 
         public UnturnedPlayer GetPlayerFromLastMessage(UnturnedPlayer player)
         {
-            CSteamID lastMessageFrom = new CSteamID();
+            Steamworks.CSteamID lastMessageFromPlayer = new Steamworks.CSteamID();
 
             // If the player who sent the message is in the dictionary
             if (LastMessageFromPlayer.ContainsKey(player.CSteamID))
             {
                 // Get the player who last messaged him
-                LastMessageFromPlayer.TryGetValue(player.CSteamID, out lastMessageFrom);
+                LastMessageFromPlayer.TryGetValue(player.CSteamID, out lastMessageFromPlayer);
             }
 
-            return UnturnedPlayer.FromCSteamID(lastMessageFrom);
+            return UnturnedPlayer.FromCSteamID(lastMessageFromPlayer);
         }
 
         public void WhisperPlayer(UnturnedPlayer fromPlayer, UnturnedPlayer toPlayer, string message)

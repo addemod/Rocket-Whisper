@@ -23,4 +23,5 @@ Send private messages on Unturned servers with [RocketMod](http://rocketmod.net)
 
 ## Permissions
 **whisper.message** - *Allows the player to use the /whisper command (and the aliases)*
-**whisper.repl**y - *Allows the player to use the /whisper command (and the alias)*
+
+**whisper.reply** - *Allows the player to use the /whisper command (and the alias)*
