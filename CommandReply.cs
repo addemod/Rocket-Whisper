@@ -1,12 +1,8 @@
-﻿
-using Rocket.API;
+﻿using Rocket.API;
 using Rocket.Core.Logging;
-using Rocket.Unturned;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
-using SDG.Unturned;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace PrivateMessage
@@ -31,7 +27,7 @@ namespace PrivateMessage
 
         public string Help
         {
-            get { return Plugin.Instance.Translate("whisper_reply_help"); }
+            get { return PrivateMessage.Instance.Translate("whisper_reply_help"); }
         }
 
         public string Name
@@ -68,12 +64,12 @@ namespace PrivateMessage
                 // Get the UnturnedPlayer object from the caller
                 UnturnedPlayer fromPlayer = UnturnedPlayer.FromCSteamID((Steamworks.CSteamID)ulong.Parse(caller.Id));
                 // Get the player that we should send a reply to
-                UnturnedPlayer replyTo = Plugin.Instance.GetPlayerFromLastMessage(fromPlayer);
+                UnturnedPlayer replyTo = PrivateMessage.Instance.GetPlayerFromLastMessage(fromPlayer);
                 
                 // If no player has sent a private message to command caller
                 if(replyTo == null)
                 {
-                    UnturnedChat.Say(fromPlayer, Plugin.Instance.Translate("whisper_reply_no_last_player"), Color.red);
+                    UnturnedChat.Say(fromPlayer, PrivateMessage.Instance.Translate("whisper_reply_no_last_player"), Color.red);
                     return;
                 }
 
@@ -87,11 +83,11 @@ namespace PrivateMessage
                 }
 
                 // Send the PM
-                Plugin.Instance.WhisperPlayer(fromPlayer, replyTo, FullMessage);
+                PrivateMessage.Instance.WhisperPlayer(fromPlayer, replyTo, FullMessage);
             }
             else
             {
-                UnturnedChat.Say(caller, Plugin.Instance.Translate("whisper_reply_syntax_error"), Color.red);
+                UnturnedChat.Say(caller, PrivateMessage.Instance.Translate("whisper_reply_syntax_error"), Color.red);
             }
         }
     }
