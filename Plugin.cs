@@ -1,15 +1,21 @@
-﻿using Rocket.API.Collections;
+﻿using System;
+using Rocket.API.Collections;
 using Rocket.Core.Plugins;
+using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using System.Collections.Generic;
 using UnityEngine;
+using Rocket.API;
+using Rocket.Core.Logging;
+using System.Collections;
+using Rocket.Core.Commands;
 using Rocket.Unturned.Chat;
 
 namespace PrivateMessage
 {
-    public class PrivateMessage : RocketPlugin<WhisperConfiguration>
+    public class Plugin : RocketPlugin
     {
-        public static PrivateMessage Instance;
+        public static Plugin Instance;
         public Dictionary<Steamworks.CSteamID, Steamworks.CSteamID> LastMessageFromPlayer;
 
         public override TranslationList DefaultTranslations
@@ -107,9 +113,9 @@ namespace PrivateMessage
             SetPlayerFromLastMessage(toPlayer, fromPlayer);
 
             // Send the PM (The player who receives the PM)
-            UnturnedChat.Say(toPlayer, string.Format(Translate("whisper_received"), fromPlayerName, message), UnturnedChat.GetColorFromName(PrivateMessage.Instance.Configuration.Instance.Color, Color.green));
+            UnturnedChat.Say(toPlayer, string.Format(Translate("whisper_received"), fromPlayerName, message), Color.magenta);
             // Inform the sender that the message was sent (will look like a conversation, so you can scroll back to see what you actually wrote)
-            UnturnedChat.Say(fromPlayer, string.Format(Translate("whisper_sent"), toPlayer.DisplayName, message), UnturnedChat.GetColorFromName(PrivateMessage.Instance.Configuration.Instance.Color, Color.green));
+            UnturnedChat.Say(fromPlayer, string.Format(Translate("whisper_sent"), toPlayer.DisplayName, message), Color.magenta);
         }
     }
 }

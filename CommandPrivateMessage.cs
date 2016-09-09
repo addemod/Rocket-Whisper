@@ -1,8 +1,12 @@
-﻿using Rocket.API;
+﻿
+using Rocket.API;
 using Rocket.Core.Logging;
+using Rocket.Unturned;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
+using SDG.Unturned;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace PrivateMessage
@@ -29,7 +33,7 @@ namespace PrivateMessage
 
         public string Help
         {
-            get { return PrivateMessage.Instance.Translate("whisper_help"); }
+            get { return Plugin.Instance.Translate("whisper_help"); }
         }
 
         public string Name
@@ -78,11 +82,11 @@ namespace PrivateMessage
                 {
                     if(CalledFrom == "console")
                     {
-                        Logger.Log(string.Format(PrivateMessage.Instance.Translate("whisper_player_not_found"), args[0]));
+                        Logger.Log(string.Format(Plugin.Instance.Translate("whisper_player_not_found"), args[0]));
                     }
                     else
                     {
-                        UnturnedChat.Say(caller, string.Format(PrivateMessage.Instance.Translate("whisper_player_not_found"), args[0]), Color.red);
+                        UnturnedChat.Say(caller, string.Format(Plugin.Instance.Translate("whisper_player_not_found"), args[0]), Color.red);
                     }
                     return;
                 }
@@ -97,7 +101,7 @@ namespace PrivateMessage
                 // If the caller tries to whisper to himself
                 if(fromPlayer.CSteamID == toPlayer.CSteamID)
                 {
-                    UnturnedChat.Say(fromPlayer, PrivateMessage.Instance.Translate("whisper_to_self"), Color.red);
+                    UnturnedChat.Say(fromPlayer, Plugin.Instance.Translate("whisper_to_self"), Color.red);
                     return;
                 }
 
@@ -117,11 +121,11 @@ namespace PrivateMessage
                 }
 
                 // Whisper the player
-                PrivateMessage.Instance.WhisperPlayer(fromPlayer, toPlayer, FullMessage);
+                Plugin.Instance.WhisperPlayer(fromPlayer, toPlayer, FullMessage);
             }
             else
             {
-                UnturnedChat.Say(caller, PrivateMessage.Instance.Translate("whisper_syntax_error"), Color.red);
+                UnturnedChat.Say(caller, Plugin.Instance.Translate("whisper_syntax_error"), Color.red);
             }
         }
     }
