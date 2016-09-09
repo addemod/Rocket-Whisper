@@ -1,12 +1,8 @@
-﻿
-using Rocket.API;
+﻿using Rocket.API;
 using Rocket.Core.Logging;
-using Rocket.Unturned;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
-using SDG.Unturned;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace PrivateMessage
@@ -67,7 +63,7 @@ namespace PrivateMessage
             else
             {
                 // Can't send PM from console (yet)
-                Logger.Log("Can't send PM via console (yet!)");
+                Rocket.Core.Logging.Logger.Log("Can't send PM via console (yet!)");
                 return;
             }
 
@@ -82,7 +78,7 @@ namespace PrivateMessage
                 {
                     if(CalledFrom == "console")
                     {
-                        Logger.Log(string.Format(Plugin.Instance.Translate("whisper_player_not_found"), args[0]));
+                        Rocket.Core.Logging.Logger.Log(string.Format(Plugin.Instance.Translate("whisper_player_not_found"), args[0]));
                     }
                     else
                     {

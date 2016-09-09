@@ -1,12 +1,7 @@
-﻿
-using Rocket.API;
-using Rocket.Core.Logging;
-using Rocket.Unturned;
+﻿using Rocket.API;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
-using SDG.Unturned;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace PrivateMessage
@@ -59,7 +54,7 @@ namespace PrivateMessage
             // If command called from console
             if (caller == null)
             {
-                Logger.Log("This command can't be used from the console.");
+                Rocket.Core.Logging.Logger.Log("This command can't be used from the console.");
                 return;
             }
 
