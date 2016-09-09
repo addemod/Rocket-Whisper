@@ -13,7 +13,7 @@ using Rocket.Unturned.Chat;
 
 namespace PrivateMessage
 {
-    public class Plugin : RocketPlugin
+    public class Plugin : RocketPlugin<PluginConfig>
     {
         public static Plugin Instance;
         public Dictionary<Steamworks.CSteamID, Steamworks.CSteamID> LastMessageFromPlayer;
@@ -113,9 +113,9 @@ namespace PrivateMessage
             SetPlayerFromLastMessage(toPlayer, fromPlayer);
 
             // Send the PM (The player who receives the PM)
-            UnturnedChat.Say(toPlayer, string.Format(Translate("whisper_received"), fromPlayerName, message), Color.magenta);
+            UnturnedChat.Say(toPlayer, string.Format(Translate("whisper_received"), fromPlayerName, message), UnturnedChat.GetColorFromName(Instance.Configuration.Instance.Color, Color.magenta));
             // Inform the sender that the message was sent (will look like a conversation, so you can scroll back to see what you actually wrote)
-            UnturnedChat.Say(fromPlayer, string.Format(Translate("whisper_sent"), toPlayer.DisplayName, message), Color.magenta);
+            UnturnedChat.Say(fromPlayer, string.Format(Translate("whisper_sent"), toPlayer.DisplayName, message), UnturnedChat.GetColorFromName(Instance.Configuration.Instance.Color, Color.magenta));
         }
     }
 }
