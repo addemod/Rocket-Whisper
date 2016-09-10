@@ -24,4 +24,20 @@ Send private messages on Unturned servers with [RocketMod](http://rocketmod.net)
 ## Permissions
 **whisper.message** - *Allows the player to use the /whisper command (and the aliases)*
 
-**whisper.reply** - *Allows the player to use the /whisper command (and the alias)*
+**whisper.reply** - *Allows the player to use the /reply command (and the alias)*
+
+## Config
+**Color** – *Change the color of the whispers.*
+**All colors available are:**
+* black
+* blue
+* clear
+* cyan
+* gray
+* green
+* grey
+* magenta
+* red
+* white
+* yellow
+* rocket
