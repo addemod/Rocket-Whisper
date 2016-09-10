@@ -28,6 +28,7 @@ Send private messages on Unturned servers with [RocketMod](http://rocketmod.net)
 
 ## Config
 **Color** – *Change the color of the whispers.*
+
 **All colors available are:**
 * black
 * blue
